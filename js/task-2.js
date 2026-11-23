@@ -1,61 +1,27 @@
-//Код стрілочної функції, яка перейматиме два параметри: масив об’єктів користувачів та ім’я друга для пошуку.
-const getUsersWithFriend = (users, friendName) =>
-  users.filter((user) => user.friends.includes(friendName));
-//Функція повинна повертати масив об’єктів користувачів, у яких є друг з ім’ям, що передається другому параметру.
+class Storage {
+  #items;
+  constructor(items) {
+    this.#items = items;
+  }
 
-//Приклад виклику функції:
+  getItems() {
+    return this.#items;
+  }
 
-const users = [
-  {
-    name: "Moore Hensley",
-    friends: ["Sharron Pace"],
-  },
-  {
-    name: "Sharlene Bush",
-    friends: ["Briana Decker", "Sharron Pace"],
-  },
-  {
-    name: "Ross Vazquez",
-    friends: ["Marilyn Foutz", "Sharron Pace"],
-  },
-  {
-    name: "Elma Head",
-    friends: ["Marilyn Foutz", "Sharron Pace", "Kelly Bell"],
-  },
-  {
-    name: "Carey Barr",
-    friends: ["Marilyn Foutz", "Sharron Pace", "Kelly Bell"],
-  },
-  {
-    name: "Blackburn Dotson",
-    friends: ["Jacklyn Lucas", "Sharron Pace"],
-  },
-  {
-    name: "Sheree Anthony",
-    friends: ["Jacklyn Lucas", "Sharron Pace"],
-  },
-];
+  addItem(newItem) {
+    this.#items.push(newItem);
+  }
 
-console.log(getUsersWithFriend(users, "Sharron Pace"));
-/*
-[
-  { name: 'Moore Hensley', friends: [ 'Sharron Pace' ] },
-  { name: 'Sharlene Bush', friends: [ 'Briana Decker', 'Sharron Pace' ] },
-  { name: 'Ross Vazquez', friends: [ 'Marilyn Foutz', 'Sharron Pace' ] },
-  { name: 'Elma Head', friends: [ 'Marilyn Foutz', 'Sharron Pace', 'Kelly Bell' ] },
-  { name: 'Carey Barr', friends: [ 'Marilyn Foutz', 'Sharron Pace', 'Kelly Bell' ] },
-  { name: 'Blackburn Dotson', friends: [ 'Jacklyn Lucas', 'Sharron Pace' ] },
-  { name: 'Sheree Anthony', friends: [ 'Jacklyn Lucas', 'Sharron Pace' ] }
-]
-*/
+  removeItem(itemToRemove) {
+    this.#items = this.#items.filter((item) => item !== itemToRemove);
+  }
+}
 
-console.log(getUsersWithFriend(users, "Marilyn Foutz"));
-/*
-[
-  { name: 'Ross Vazquez', friends: [ 'Marilyn Foutz', 'Sharron Pace' ] },
-  { name: 'Elma Head', friends: [ 'Marilyn Foutz', 'Sharron Pace', 'Kelly Bell' ] },
-  { name: 'Carey Barr', friends: [ 'Marilyn Foutz', 'Sharron Pace', 'Kelly Bell' ] }
-]
-*/
+const storage = new Storage(["Nanitoids", "Prolonger", "Antigravitator"]);
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
 
-console.log(getUsersWithFriend(users, "Goldie Gentry")); // []
+storage.addItem("Droid");
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+
+storage.removeItem("Prolonger");
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
